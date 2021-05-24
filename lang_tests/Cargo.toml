@@ -11,6 +11,7 @@ path = "run.rs"
 harness = false
 
 [dependencies]
-lang_tester = "0.6"
+#lang_tester = "0.6"
+lang_tester = { path = "../../lang_tester" }
 lazy_static = "1.4"
 regex = "1.5"
