@@ -73,7 +73,7 @@ void interp(char *prog, char *prog_end, char *cells, char *cells_end) {
             }
             default: break;
         }
-                instr++;
+        instr++;
     }
 }
 
