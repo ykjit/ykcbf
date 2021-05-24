@@ -32,7 +32,8 @@ void interp(char *prog, char *prog_end, char *cells, char *cells_end) {
                 break;
             }
             case '.': {
-                putchar(*cell);
+                if (putchar(*cell) == EOF)
+                    err(1, "(stdout)");
                 break;
             }
             case ',': {
