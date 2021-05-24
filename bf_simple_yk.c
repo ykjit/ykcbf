@@ -5,13 +5,16 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <yk.h>
 
 #define CELLS_LEN 30000
 
-void interp(char *prog, char *prog_end, char *cells, char *cells_end) {
+void interp(char *prog, char *prog_end, char *cells, char *cells_end, YkLocation *yklocs) {
+    YkMT *mt = yk_mt();
     char *instr = prog;
     char *cell = cells;
     while (instr < prog_end) {
+        yk_control_point(mt, &yklocs[instr - prog]);
         switch (*instr) {
             case '>': {
                 if (cell++ == cells_end)
@@ -93,5 +96,11 @@ int main(int argc, char *argv[]) {
     if (cells == NULL)
         err(1, "out of memory");
 
-    interp(prog, prog + sb.st_size, cells, cells + CELLS_LEN);
+    YkLocation *yklocs = malloc(sizeof(YkLocation) * CELLS_LEN);
+    if (yklocs == NULL)
+        err(1, "out of memory");
+    for (YkLocation *ykloc = yklocs; ykloc < yklocs + CELLS_LEN; ykloc++)
+        *ykloc = yk_location_new();
+
+    interp(prog, prog + sb.st_size, cells, cells + CELLS_LEN, yklocs);
 }
