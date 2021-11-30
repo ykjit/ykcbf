@@ -4,6 +4,7 @@ use lang_tester::LangTester;
 use lazy_static::lazy_static;
 use regex::{Regex, RegexBuilder};
 
+// FIXME: doesn't yet test the JIT.
 static BF_BINARIES: &[&str] = &["bf_base"];
 
 lazy_static! {
