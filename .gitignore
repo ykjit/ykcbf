@@ -1,2 +1,6 @@
 bf_base
-bf_base.o
+bf_simple_yk
+bf_simple2_yk
+*.o
+*.ll
+*.bc

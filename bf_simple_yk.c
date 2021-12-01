@@ -10,11 +10,10 @@
 #define CELLS_LEN 30000
 
 void interp(char *prog, char *prog_end, char *cells, char *cells_end, YkLocation *yklocs) {
-    YkMT *mt = yk_mt();
     char *instr = prog;
     char *cell = cells;
     while (instr < prog_end) {
-        yk_control_point(mt, &yklocs[instr - prog]);
+        yk_control_point(&yklocs[instr - prog]);
         switch (*instr) {
             case '>': {
                 if (cell++ == cells_end)
