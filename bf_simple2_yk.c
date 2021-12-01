@@ -102,19 +102,25 @@ int main(int argc, char *argv[]) {
     struct stat sb;
     if (fstat(fd, &sb) != 0)
         err(1, "%s", argv[1]);
-    char *prog = malloc(sb.st_size);
-    if (read(fd, prog, sb.st_size) != sb.st_size)
+
+    size_t prog_len = sb.st_size;
+    char *prog = malloc(prog_len);
+    if (prog == NULL)
+        err(1, "out of memory");
+
+    if (read(fd, prog, prog_len) != prog_len)
         err(1, "%s", argv[1]);
 
     char *cells = calloc(1, CELLS_LEN);
     if (cells == NULL)
         err(1, "out of memory");
 
-    YkLocation *yklocs = malloc(sizeof(YkLocation) * CELLS_LEN);
+    YkLocation *yklocs = calloc(prog_len, sizeof(YkLocation));
     if (yklocs == NULL)
         err(1, "out of memory");
-    for (YkLocation *ykloc = yklocs; ykloc < yklocs + CELLS_LEN; ykloc++)
+    for (YkLocation *ykloc = yklocs; ykloc < yklocs + prog_len; ykloc++)
         *ykloc = yk_location_new();
 
-    interp(prog, prog + sb.st_size, cells, cells + CELLS_LEN, yklocs);
+    interp(prog, prog + prog_len, cells, cells + CELLS_LEN, yklocs);
+    free(yklocs);
 }
