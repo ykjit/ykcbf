@@ -13,7 +13,10 @@ void interp(char *prog, char *prog_end, char *cells, char *cells_end, YkLocation
     char *instr = prog;
     char *cell = cells;
     while (instr < prog_end) {
-        yk_control_point(&yklocs[instr - prog]);
+        YkLocation *loc = NULL;
+        if (*instr == ']')
+            loc = &yklocs[instr - prog];
+        yk_control_point(loc);
         switch (*instr) {
             case '>': {
                 if (cell++ == cells_end)
