@@ -32,8 +32,10 @@ cd yk && cargo build
 YK_INST_DIR=`pwd`/target/debug/
 cd ..
 
-CFLAGS="-O3" make bf_base
-YK_DIR=`pwd`/yk CFLAGS=-O3 make bf_simple_yk
-YK_DIR=`pwd`/yk CFLAGS=-O3 make bf_simple2_yk
+# FIXME: We should test all optimisation levels.
+# https://github.com/ykjit/ykcbf/issues/9
+CFLAGS="-O0" make bf_base
+YK_DIR=`pwd`/yk CFLAGS=-O0 make bf_simple_yk
+YK_DIR=`pwd`/yk CFLAGS=-O0 make bf_simple2_yk
 
 cd lang_tests && cargo test
