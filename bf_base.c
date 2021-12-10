@@ -85,13 +85,18 @@ int main(int argc, char *argv[]) {
     struct stat sb;
     if (fstat(fd, &sb) != 0)
         err(1, "%s", argv[1]);
-    char *prog = malloc(sb.st_size);
-    if (read(fd, prog, sb.st_size) != sb.st_size)
+
+    size_t prog_len = sb.st_size;
+    char *prog = malloc(prog_len);
+    if (prog == NULL)
+        err(1, "out of memory");
+
+    if (read(fd, prog, prog_len) != prog_len)
         err(1, "%s", argv[1]);
 
     char *cells = calloc(1, CELLS_LEN);
     if (cells == NULL)
         err(1, "out of memory");
 
-    interp(prog, prog + sb.st_size, cells, cells + CELLS_LEN);
+    interp(prog, prog + prog_len, cells, cells + CELLS_LEN);
 }

@@ -41,6 +41,10 @@ bf_simple2_yk.o: bf_simple2_yk.c
 bf_simple2_yk: bf_simple2_yk.o
 	clang ${YK_LDFLAGS} ${LDFLAGS} -o $@ $<
 
+.PHONY: test
+test: all
+	cd lang_tests && cargo test
+
 clean:
 	rm -f bf_base bf_base.o \
 		bf_simple_yk bf_simple_yk.o \
