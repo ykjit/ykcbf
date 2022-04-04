@@ -9,14 +9,16 @@
 
 #define CELLS_LEN 30000
 
-void interp(char *prog, char *prog_end, char *cells, char *cells_end, YkLocation *yklocs) {
+void interp(char *prog, char *prog_end, char *cells, char *cells_end,
+    YkMT *mt, YkLocation *yklocs)
+{
     char *instr = prog;
     char *cell = cells;
     while (instr < prog_end) {
         YkLocation *loc = NULL;
         if (*instr == ']')
             loc = &yklocs[instr - prog];
-        yk_control_point(loc);
+        yk_mt_control_point(mt, loc);
         switch (*instr) {
             case '>': {
                 if (cell++ == cells_end)
@@ -103,12 +105,13 @@ int main(int argc, char *argv[]) {
     if (cells == NULL)
         err(1, "out of memory");
 
+    YkMT *mt = yk_mt_new();
     YkLocation *yklocs = calloc(prog_len, sizeof(YkLocation));
     if (yklocs == NULL)
         err(1, "out of memory");
     for (YkLocation *ykloc = yklocs; ykloc < yklocs + prog_len; ykloc++)
         *ykloc = yk_location_new();
 
-    interp(prog, prog + prog_len, cells, cells + CELLS_LEN, yklocs);
+    interp(prog, prog + prog_len, cells, cells + CELLS_LEN, mt, yklocs);
     free(yklocs);
 }

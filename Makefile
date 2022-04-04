@@ -18,6 +18,7 @@ YK_LDFLAGS =	-L${YK_DIR}/target/debug/deps \
 		-Wl,--mllvm=--disable-branch-fold \
 		-Wl,--mllvm=--disable-block-placement \
 		-Wl,--mllvm=--disable-early-taildup \
+		-Wl,--mllvm=--yk-no-fallthrough \
 		-Wl,--mllvm=--disable-tail-duplicate \
 		-Wl,--mllvm=--yk-patch-control-point \
         	-Wl,--mllvm=--yk-block-disambiguate \
