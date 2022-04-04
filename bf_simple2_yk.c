@@ -12,7 +12,9 @@
 char *jmp_back(char *);
 char *jmp_fwd(char *);
 
-void interp(char *prog, char *prog_end, char *cells, char *cells_end, YkLocation *yklocs) {
+void interp(char *prog, char *prog_end, char *cells, char *cells_end,
+    YkMT *mt, YkLocation *yklocs)
+{
     // FIXME: need to call yktrace_const on `prog` (or otherwise inform yk that
     // prog is immutable for the duration of a trace).
     char *instr = prog;
@@ -21,7 +23,7 @@ void interp(char *prog, char *prog_end, char *cells, char *cells_end, YkLocation
         YkLocation *loc = NULL;
         if (*instr == ']')
             loc = &yklocs[instr - prog];
-        yk_control_point(loc);
+        yk_mt_control_point(mt, loc);
         switch (*instr) {
             case '>': {
                 if (cell++ == cells_end)
@@ -118,12 +120,13 @@ int main(int argc, char *argv[]) {
     if (cells == NULL)
         err(1, "out of memory");
 
+    YkMT *mt = yk_mt_new();
     YkLocation *yklocs = calloc(prog_len, sizeof(YkLocation));
     if (yklocs == NULL)
         err(1, "out of memory");
     for (YkLocation *ykloc = yklocs; ykloc < yklocs + prog_len; ykloc++)
         *ykloc = yk_location_new();
 
-    interp(prog, prog + prog_len, cells, cells + CELLS_LEN, yklocs);
+    interp(prog, prog + prog_len, cells, cells + CELLS_LEN, mt, yklocs);
     free(yklocs);
 }
