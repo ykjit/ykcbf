@@ -7,6 +7,7 @@ CFLAGS += -Wall
 #
 # See `c_tests/run.rs` in the `yk` repo for the meaning of all of these flags.
 YK_CFLAGS =	-I${YK_DIR}/ykcapi \
+		-fyk-noinline-funcs-with-loops \
 		-flto
 YK_LDFLAGS =	-L${YK_DIR}/target/debug/deps \
 		-Wl,-rpath=${YK_DIR}/target/debug/deps \
@@ -22,6 +23,7 @@ YK_LDFLAGS =	-L${YK_DIR}/target/debug/deps \
 		-Wl,--mllvm=--disable-tail-duplicate \
 		-Wl,--mllvm=--yk-patch-control-point \
         	-Wl,--mllvm=--yk-block-disambiguate \
+		-Wl,--mllvm=--yk-insert-stackmaps \
 		-Wl,--lto-basic-block-sections=labels \
 		-Wl,--export-dynamic
 
