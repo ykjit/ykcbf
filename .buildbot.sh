@@ -33,12 +33,13 @@ cd ../..
 git clone https://github.com/softdevteam/yk/
 cd yk && cargo build
 YK_INST_DIR=`pwd`/target/debug/
+export PATH=`pwd`/ykcapi/scripts:${PATH}
 cd ..
 
 # FIXME: We should test all optimisation levels.
 # https://github.com/ykjit/ykcbf/issues/9
 CFLAGS="-O0" make bf_base
-YK_DIR=`pwd`/yk CFLAGS=-O0 make bf_simple_yk
-YK_DIR=`pwd`/yk CFLAGS=-O0 make bf_simple2_yk
+YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple_yk
+YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple2_yk
 
 cd lang_tests && cargo test

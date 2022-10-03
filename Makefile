@@ -2,30 +2,13 @@
 CC = clang
 CFLAGS += -Wall
 
-# Flags required for the JIT to work. The user is expected to set the YK_DIR
-# environment to their (compiled) `yk` directory.
+# Flags required for the JIT to work.
 #
-# See `c_tests/run.rs` in the `yk` repo for the meaning of all of these flags.
-YK_CFLAGS =	-I${YK_DIR}/ykcapi \
-		-fyk-noinline-funcs-with-loops \
-		-flto
-YK_LDFLAGS =	-L${YK_DIR}/target/debug/deps \
-		-Wl,-rpath=${YK_DIR}/target/debug/deps \
-		-flto \
-		-fuse-ld=lld \
-		-lykcapi \
-		-Wl,--mllvm=--embed-bitcode-final \
-		-Wl,--lto-basic-block-sections=labels \
-		-Wl,--mllvm=--disable-branch-fold \
-		-Wl,--mllvm=--disable-block-placement \
-		-Wl,--mllvm=--disable-early-taildup \
-		-Wl,--mllvm=--yk-no-fallthrough \
-		-Wl,--mllvm=--disable-tail-duplicate \
-		-Wl,--mllvm=--yk-patch-control-point \
-        	-Wl,--mllvm=--yk-block-disambiguate \
-		-Wl,--mllvm=--yk-insert-stackmaps \
-		-Wl,--lto-basic-block-sections=labels \
-		-Wl,--export-dynamic
+# The user is expected to have:
+#  - put `yk-config` in the `PATH`
+#  - set `YK_BUILD_TYPE` to either `debug` or `release`.
+YK_CFLAGS=`yk-config ${YK_BUILD_TYPE} --cflags --cppflags`
+YK_LDFLAGS=`yk-config ${YK_BUILD_TYPE} --ldflags --libs`
 
 all: bf_base bf_simple_yk bf_simple2_yk
 
