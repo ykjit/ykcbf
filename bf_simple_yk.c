@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
     if (cells == NULL)
         err(1, "out of memory");
 
-    YkMT *mt = yk_mt_new();
+    YkMT *mt = yk_mt_new(NULL);
     YkLocation *yklocs = calloc(prog_len, sizeof(YkLocation));
     if (yklocs == NULL)
         err(1, "out of memory");
