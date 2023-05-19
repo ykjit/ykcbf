@@ -1,5 +1,5 @@
 # The clang used should be from ykllvm.
-CC = `ykconfig ${YK_BUILD_TYPE} --cc`
+CC = `yk-config ${YK_BUILD_TYPE} --cc`
 CFLAGS += -Wall
 
 # Flags required for the JIT to work.
