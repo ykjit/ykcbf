@@ -1,5 +1,3 @@
-# The clang used should be from ykllvm.
-CC = `yk-config ${YK_BUILD_TYPE} --cc`
 CFLAGS += -Wall
 
 # Flags required for the JIT to work.
@@ -7,6 +5,7 @@ CFLAGS += -Wall
 # The user is expected to have:
 #  - put `yk-config` in the `PATH`
 #  - set `YK_BUILD_TYPE` to either `debug` or `release`.
+YK_CC=`yk-config ${YK_BUILD_TYPE} --cc`
 YK_CFLAGS=`yk-config ${YK_BUILD_TYPE} --cflags --cppflags`
 YK_LDFLAGS=`yk-config ${YK_BUILD_TYPE} --ldflags --libs`
 
