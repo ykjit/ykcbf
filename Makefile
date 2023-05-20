@@ -15,16 +15,16 @@ bf_base: bf_base.o
 	clang ${LDFLAGS} -o $@ $<
 
 bf_simple_yk.o: bf_simple_yk.c
-	${CC} ${CFLAGS} ${YK_CFLAGS} -c -o $@ $<
+	${YK_CC} ${CFLAGS} ${YK_CFLAGS} -c -o $@ $<
 
 bf_simple_yk: bf_simple_yk.o
-	clang ${YK_LDFLAGS} ${LDFLAGS} -o $@ $<
+	${YK_CC} ${YK_LDFLAGS} ${LDFLAGS} -o $@ $<
 
 bf_simple2_yk.o: bf_simple2_yk.c
-	${CC} ${CFLAGS} ${YK_CFLAGS} -c -o $@ $<
+	${YK_CC} ${CFLAGS} ${YK_CFLAGS} -c -o $@ $<
 
 bf_simple2_yk: bf_simple2_yk.o
-	clang ${YK_LDFLAGS} ${LDFLAGS} -o $@ $<
+	${YK_CC} ${YK_LDFLAGS} ${LDFLAGS} -o $@ $<
 
 .PHONY: test
 test: all
