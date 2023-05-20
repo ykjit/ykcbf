@@ -12,7 +12,7 @@ YK_LDFLAGS=`yk-config ${YK_BUILD_TYPE} --ldflags --libs`
 all: bf_base bf_simple_yk bf_simple2_yk
 
 bf_base: bf_base.o
-	clang ${LDFLAGS} -o $@ $<
+	${YK_CC} ${LDFLAGS} -o $@ $<
 
 bf_simple_yk.o: bf_simple_yk.c
 	${YK_CC} ${CFLAGS} ${YK_CFLAGS} -c -o $@ $<
