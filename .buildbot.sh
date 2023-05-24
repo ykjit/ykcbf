@@ -14,13 +14,14 @@ sh rustup.sh --default-host x86_64-unknown-linux-gnu \
 export PATH=`pwd`/.cargo/bin/:$PATH
 
 git clone --recurse-submodules --depth 1 https://github.com/softdevteam/yk
+export YKB_YKLLVM_BUILD_ARGS="define:CMAKE_C_COMPILER=/usr/bin/clang,define:CMAKE_CXX_COMPILER=/usr/bin/clang++"
 cd yk && cargo build
 export PATH=`pwd`/ykcapi/scripts:${PATH}
 cd ..
 
 # FIXME: We should test all optimisation levels.
 # https://github.com/ykjit/ykcbf/issues/9
-YK_BUILD_TYPE=debug CFLAGS=-O0 CFLAGS="-O0" make bf_base
+YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_base
 YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple_yk
 YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple2_yk
 
