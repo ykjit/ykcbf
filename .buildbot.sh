@@ -16,7 +16,7 @@ export PATH=`pwd`/.cargo/bin/:$PATH
 git clone --recurse-submodules --depth 1 https://github.com/softdevteam/yk
 export YKB_YKLLVM_BUILD_ARGS="define:CMAKE_C_COMPILER=/usr/bin/clang,define:CMAKE_CXX_COMPILER=/usr/bin/clang++"
 cd yk && cargo build
-export PATH=`pwd`/ykcapi/scripts:${PATH}
+export PATH=`pwd`/bin:${PATH}
 cd ..
 
 # FIXME: We should test all optimisation levels.
