@@ -22,7 +22,7 @@ cd ..
 # FIXME: We should test all optimisation levels.
 # https://github.com/ykjit/ykcbf/issues/9
 YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_base
-YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple_yk
-YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple2_yk
+YKD_NEW_CODEGEN=1 YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple_yk
+YKD_NEW_CODEGEN=1 YK_BUILD_TYPE=debug CFLAGS=-O0 make bf_simple2_yk
 
-cd lang_tests && cargo test
+cd lang_tests && YKD_NEW_CODEGEN=1 cargo test
