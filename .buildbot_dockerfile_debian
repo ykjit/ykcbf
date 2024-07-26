@@ -3,7 +3,7 @@ ARG CI_UID
 RUN useradd -m -u ${CI_UID} ci
 RUN apt-get update && \
 apt-get -y install clang-15 make curl procps file git cmake python3 \
-    libtinfo-dev libzip-dev mold ninja-build
+    libtinfo-dev libzip-dev mold ninja-build gdb
 WORKDIR /ci
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang-15 999
 RUN update-alternatives --set cc /usr/bin/clang-15
