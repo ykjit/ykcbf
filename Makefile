@@ -1,4 +1,4 @@
-CFLAGS += -Wall
+CFLAGS ?= -O2 -Wall
 
 # Flags required for the JIT to work.
 #
