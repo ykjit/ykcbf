@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
         err(1, "out of memory");
     for (size_t i = 0; i < prog_len; i++) {
       if (prog[i] == ']')
-        yklocs[i] = yk_location_new();
+        yklocs[i] = yk_location_loop();
       else
         yklocs[i] = yk_location_null();
     }
